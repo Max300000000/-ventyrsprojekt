@@ -1,2 +1,211 @@
-print("GGG")
-print("amogos")
+print("""
+Välkommen till Äventyrsspelet! Du är en ensam utforskare på väg in i en mystisk grotta. Se till att nå nivå 10 innan du dör!""")
+
+import random, time
+
+def strid_print(monster_strength):
+    printa("Du stötte på ett monster!", 0.045)
+    for i in range(3):
+      time.sleep(0.3)
+      print(".", end = "")
+    time.sleep(0.2)
+    print("\n")
+    if monster_strength > player1.strength:
+        player1.hp -= 1
+        printa("Du tog 1 skada", 0.045)
+        time.sleep(0.4)
+        print("\n")
+        printa(f"Du har {player1.hp}❤ hp kvar", 0.045)
+        time.sleep(0.4)
+        print("")
+    elif monster_strength < player1.strength:
+        player1.lvl += 1
+        printa("Du besegrade monstret!", 0.045)
+        time.sleep(0.4)
+        print("\n")
+        printa(f"Du gick upp till level {player1.lvl}", 0.045) 
+        time.sleep(0.4)
+        print("")
+    else:
+        printa("Monstret sprang iväg!", 0.045)
+        time.sleep(0.4)
+        print("")
+        printa("Ingenting händer", 0.045)
+        time.sleep(0.4)
+        print("")
+
+def kista_print(x):
+    print("")
+    if x == 1:
+        printa("Du hittade en kista med en", 0.045)
+    else:
+        printa("Du hittade en kista med ett", 0.045)
+    for i in range(3):
+      time.sleep(0.3)
+      print(".", end = "")
+    time.sleep(0.2)
+    print(end = " ")
+    print(f"{player1.inventory[-1].name}!")
+    time.sleep(0.6)
+    print("")
+    printa(f"Det ger dig +{player1.inventory[-1].strength_bonus} Strength", 0.045)
+    time.sleep(0.4)
+    print("")
+
+def fälla_print(x):
+    print("")
+    player1.hp -= x
+    printa("Aj!", 0)
+    time.sleep(0.3)
+    print(end = " ")
+    printa("en fälla!", 0.045)
+    time.sleep(0.4)
+    print("")
+    printa(f"Du tog {x}❤ skada", 0.045)
+    time.sleep(0.4)
+    print("\n")
+    printa(f"Du har {player1.hp}❤ hp kvar", 0.045)
+    time.sleep(0.4)
+    print("")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Player:
+  def __init__(self, strength, hp, lvl, inventory):
+    self.strength = strength
+    self.hp = hp
+    self.lvl = lvl
+    self.inventory = inventory
+
+class Item:
+  def __init__(self, name, strength_bonus):
+    self.name = name
+    self.strength_bonus = strength_bonus
+
+
+player1 = Player(1, 10, 1, [])
+
+en_items = ["Yxa", "Thor's hammare" "Sten" "Slangbella", "Sköld", "Pilbåge"]
+ett_items = ["Svärd",  "Löv", "Förtrollat äpple"]
+
+
+
+def printa(text, hastighet):        #0.045
+    ord = text.split()
+    for i in range(0,len(ord)):
+        for bokstav in ord[i]:
+            print(bokstav, end = "")
+            time.sleep(hastighet)
+        if i != len(ord) -1:
+            print(end = " ")
+
+
+
+def fråga():
+    while True:
+        x = input("\nVad vill du göra? (gå/inventory/stats)\n--> ")
+        if x.strip() == "1" or x.strip().lower() == "gå":
+            dörr()
+            break
+        elif x.strip() == "2" or x.strip().lower() == "inventory":
+            print("")
+            if len(player1.inventory) == 0:
+              printa("Ditt inventory är tomt", 0.045)
+              print("")
+            for item in player1.inventory:
+              print(f"{item.name} +{item.strength_bonus}")
+        elif x.strip() == "3" or x.strip().lower() == "stats":
+            print(f'''
+Lvl = {player1.lvl}
+Hp = {player1.hp}
+Str = {player1.strength}''')
+        else:
+          pass
+
+
+def dörr():
+  while True:
+    x = input("\nVilken dörr? (1/2/3)\n--> ")
+    if x.strip() == "1" or x.strip() == "2" or x.strip() == "3":
+      y = random.randint(1,3)
+      if y == 1:
+        fälla()
+        break
+      elif y == 2:
+        kista()
+        break
+      elif y == 3:
+        strid()
+        break
+    else:
+      print("\nSkriv 1, 2 eller 3 tack")       
+
+
+
+def fälla():
+    x = random.randint(1,2)
+    fälla_print(x)
+
+
+def kista():
+  if len(player1.inventory) != 5:
+      x = random.randint(1,2)
+      if x == 1:
+          namn = random.choice(en_items)
+          en_items.remove(namn)
+      else:
+          namn = random.choice(ett_items)
+          ett_items.remove(namn)
+      player1.inventory.append(Item(namn,random.randint(1,5)))
+      player1.strength += player1.inventory[-1].strength_bonus
+      kista_print(x)
+
+
+def strid():
+    monster_strength = random.randint(1, 10)
+    strid_print(monster_strength)
+
+    
+
+
+
+
+
+def spela():
+    omgång = 0
+    while True:
+        omgång += 1
+        fråga()
+
+
+spela()
+
+
+
+
+
+
+
+
+
+
