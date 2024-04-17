@@ -1,90 +1,14 @@
-print("""
-Välkommen till Äventyrsspelet! Du är en ensam utforskare på väg in i en mystisk grotta. Se till att nå nivå 10 innan du dör!""")
-
 import random, time
 
-def strid_print(monster_strength):
-    printa("Du stötte på ett monster!", 0.045)
-    for i in range(3):
-      time.sleep(0.3)
-      print(".", end = "")
-    time.sleep(0.2)
-    print("\n")
-    if monster_strength > player1.strength:
-        player1.hp -= 1
-        printa("Du tog 1 skada", 0.045)
-        time.sleep(0.4)
-        print("\n")
-        printa(f"Du har {player1.hp}❤ hp kvar", 0.045)
-        time.sleep(0.4)
-        print("")
-    elif monster_strength < player1.strength:
-        player1.lvl += 1
-        printa("Du besegrade monstret!", 0.045)
-        time.sleep(0.4)
-        print("\n")
-        printa(f"Du gick upp till level {player1.lvl}", 0.045) 
-        time.sleep(0.4)
-        print("")
-    else:
-        printa("Monstret sprang iväg!", 0.045)
-        time.sleep(0.4)
-        print("")
-        printa("Ingenting händer", 0.045)
-        time.sleep(0.4)
-        print("")
-
-def kista_print(x):
-    print("")
-    if x == 1:
-        printa("Du hittade en kista med en", 0.045)
-    else:
-        printa("Du hittade en kista med ett", 0.045)
-    for i in range(3):
-      time.sleep(0.3)
-      print(".", end = "")
-    time.sleep(0.2)
-    print(end = " ")
-    print(f"{player1.inventory[-1].name}!")
-    time.sleep(0.6)
-    print("")
-    printa(f"Det ger dig +{player1.inventory[-1].strength_bonus} Strength", 0.045)
-    time.sleep(0.4)
-    print("")
-
-def fälla_print(x):
-    print("")
-    player1.hp -= x
-    printa("Aj!", 0)
-    time.sleep(0.3)
-    print(end = " ")
-    printa("en fälla!", 0.045)
-    time.sleep(0.4)
-    print("")
-    printa(f"Du tog {x}❤ skada", 0.045)
-    time.sleep(0.4)
-    print("\n")
-    printa(f"Du har {player1.hp}❤ hp kvar", 0.045)
-    time.sleep(0.4)
-    print("")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+välkomnande = ("""
+╔╦╦╦══════╦╦══════════════╦╦╗
+║╠╩╬╦╦═╦═╦╣╠╦╦╦═╦══╦══╦═╦═╣║║
+║╠╝║║║╩╣║╠╗╔╣║║╠╬╗╚╬╗╚╣║║╩╣║║
+║╚═╩═╩═╩╩╝╚═╬╗╠╝╚══╩══╣╔╩═╩╝║
+╚═══════════╩═╩═══════╩╩════╝
+Du är en ensam utforskare på väg in i en mystisk grotta.
+□￭▪️◼■⬚ Se till att nå nivå 10 innan du dör!
+""")
 
 
 
@@ -105,19 +29,30 @@ class Item:
 
 player1 = Player(1, 10, 1, [])
 
-en_items = ["Yxa", "Thor's hammare" "Sten" "Slangbella", "Sköld", "Pilbåge"]
-ett_items = ["Svärd",  "Löv", "Förtrollat äpple"]
+en_items = ["Yxa", "Sten" "Slangbella", "Sköld", "Pilbåge", "Ryggsäck","mcflurry caramel popcorn"]
+ett_items = ["Gammalt Svärd",  "Visset Löv", "Förtrollat äpple","happy meal :)"]
+_items = ["Thor's Hammare", "Dödsskölden", "Det Heliga Svärdet", "", ""]
 
 
 
-def printa(text, hastighet):        #0.045
-    ord = text.split()
-    for i in range(0,len(ord)):
-        for bokstav in ord[i]:
-            print(bokstav, end = "")
-            time.sleep(hastighet)
-        if i != len(ord) -1:
-            print(end = " ")
+
+def printa(text):
+  n, x = 0, ""
+  for bokstav in text:
+      if bokstav == "*" or n == 1:
+          n = 1
+          if bokstav != " ":
+              x += str(bokstav)
+          else:
+              if "." in x:
+                time.sleep((int(x[1])+(int(x[3:]))/(10**len(x[3:]))))
+              else:
+                  time.sleep(int(x[1:]))
+              n, x = 0, ""
+      else:
+          print(bokstav, end = "", flush = True)
+          time.sleep(0.045)
+
 
 
 
@@ -130,7 +65,7 @@ def fråga():
         elif x.strip() == "2" or x.strip().lower() == "inventory":
             print("")
             if len(player1.inventory) == 0:
-              printa("Ditt inventory är tomt", 0.045)
+              printa("Ditt inventory är tomt")
               print("")
             for item in player1.inventory:
               print(f"{item.name} +{item.strength_bonus}")
@@ -143,69 +78,99 @@ Str = {player1.strength}''')
           pass
 
 
+
+
 def dörr():
   while True:
     x = input("\nVilken dörr? (1/2/3)\n--> ")
     if x.strip() == "1" or x.strip() == "2" or x.strip() == "3":
-      y = random.randint(1,3)
-      if y == 1:
-        fälla()
-        break
-      elif y == 2:
-        kista()
-        break
-      elif y == 3:
-        strid()
+        random.choice([fälla, kista, monster])()
         break
     else:
       print("\nSkriv 1, 2 eller 3 tack")       
 
 
 
+
 def fälla():
     x = random.randint(1,2)
-    fälla_print(x)
+    player1.hp -= x
+    print("\nAj!", end = "")
+    printa(f"*0.3  en fälla!*0.4 \nDu tog {x}❤ skada*0.4 \n\nDu har {player1.hp}❤ hp kvar*0.4 \n")
 
 
-def kista():
-  if len(player1.inventory) != 5:
-      x = random.randint(1,2)
-      if x == 1:
-          namn = random.choice(en_items)
-          en_items.remove(namn)
-      else:
-          namn = random.choice(ett_items)
-          ett_items.remove(namn)
-      player1.inventory.append(Item(namn,random.randint(1,5)))
-      player1.strength += player1.inventory[-1].strength_bonus
-      kista_print(x)
 
 
-def strid():
-    monster_strength = random.randint(1, 10)
-    strid_print(monster_strength)
+def kista():      #+str i combat?
+    ord = random.choice([" en", " ett", ""])
+    if ord == " en":
+        namn = random.choice(en_items)
+    elif ord == " ett":
+        namn = random.choice(ett_items)
+    else:
+        namn = random.choice(_items)
+    for i in ett_items, en_items, _items:
+        if namn in i:
+            i.remove(namn)
+    player1.inventory.append(Item(namn,random.randint(1,5)))
+    player1.strength += player1.inventory[-1].strength_bonus
+    printa(f"\nDu hittade en kista med{ord}*0.3 .*0.3 .*0.3 .*0.2 ")
+    print(f" {namn}!")
+    printa(f"*0.6 Det ger dig +{player1.inventory[-1].strength_bonus} Strength*0.4 \n")
+    if len(player1.inventory) != 5:
+        pass
 
-    
 
+
+
+def monster():    #springer iväg 
+    monster_strength = random.randint(1,10)
+    printa("\nDu stötte på ett monster!*0.3 .*0.3 .*0.3 .*0.2 \n")
+    if monster_strength > player1.strength:
+        player1.hp -= 1
+        printa(f"Du tog 1❤ skada*0.4 \n\nDu har {player1.hp}❤ hp kvar*0.4 \n")
+    elif monster_strength < player1.strength:
+        player1.lvl += 1
+        printa(f"Du besegrade monstret!*0.4 \n\nDu gick upp till level {player1.lvl}*0.4 \n")
+    else:
+        printa("Monstret sprang iväg! *0.4 \n\nIngenting händer*0.4 \n")
+
+
+
+
+def du_förlorade():
+  time.sleep(1)
+  for bokstav in "\n💀Du förlorade💀":
+      print(bokstav, end = "")
+      time.sleep(0.125)
+  for i in range(3):
+      print(".", end = "")
+      time.sleep(0.2)
+  time.sleep(2)
+
+
+def du_vann():
+  time.sleep(1)
+  printa("Du har vunnit äventyrsspelet!")
+  for i in range(3):
+      print("🎉", end = "")
+      time.sleep(0.15)
 
 
 
 
 def spela():
-    omgång = 0
-    while True:
-        omgång += 1
-        fråga()
+  omgång = 0
+  print(välkomnande)
+  while True:
+      omgång += 1   #balance
+      fråga()
+      if player1.hp < 1:     #-hp
+        du_förlorade() 
+        break
+      elif player1.lvl == 10:
+        du_vann()
+        break
 
 
-spela()
-
-
-
-
-
-
-
-
-
-
+#spela()
