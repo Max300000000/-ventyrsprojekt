@@ -1,40 +1,72 @@
 import random, time
 
 välkomnande = ("""
-╔╦╦╦══════╦╦══════════════╦╦╗
-║╠╩╬╦╦═╦═╦╣╠╦╦╦═╦══╦══╦═╦═╣║║
-║╠╝║║║╩╣║╠╗╔╣║║╠╬╗╚╬╗╚╣║║╩╣║║
-║╚═╩═╩═╩╩╝╚═╬╗╠╝╚══╩══╣╔╩═╩╝║
-╚═══════════╩═╩═══════╩╩════╝
-Du är en ensam utforskare på väg in i en mystisk grotta.
-□￭▪️◼■⬚ Se till att nå nivå 10 innan du dör!
+Du är en ensam utforskare på väg in i ett övergivet slott.
+
+Se till att nå nivå 10 innan du dör!
 """)
 
-
-
-
-
 class Player:
-  def __init__(self, strength, hp, lvl, inventory):
-    self.strength = strength
-    self.hp = hp
-    self.lvl = lvl
-    self.inventory = inventory
+  def __init__(self):
+    self.strength = 1
+    self.hp = 10
+    self.lvl = 1
+    self.inventory = []
+
+
 
 class Item:
-  def __init__(self, name, strength_bonus):
-    self.name = name
-    self.strength_bonus = strength_bonus
+  def __init__(self, name, str_bonus, genus, icon):
+      self.name = name
+      self.str_bonus = str_bonus
+      self.icon = icon
+      self.genus = genus
 
+player1 = Player()
 
-player1 = Player(1, 10, 1, [])
+Dörrar = ('''\n    ▄▄▄         ▄▄▄         ▄▄▄\n ▄▀▀   ▀▀▄   ▄▀▀   ▀▀▄   ▄▀▀   ▀▀▄\n█   ▄█    █ █  ▄▀▀▄   █ █  ▄▀▀▄   █\n█    █    █ █    ▄▀   █ █    ▄▀   █\n█    █    █ █  ▄█▄▄   █ █  ▄  █   █\n█      ▄▄ █ █      ▄▄ █ █   ▀▀ ▄▄ █\n█      ▀▀ █ █      ▀▀ █ █      ▀▀ █\n█         █ █         █ █         █\n█         █ █         █ █         █\n█▄▄▄▄▄▄▄▄▄█ █▄▄▄▄▄▄▄▄▄█ █▄▄▄▄▄▄▄▄▄█
+''')
 
-en_items = ["Yxa", "Sten" "Slangbella", "Sköld", "Pilbåge", "Ryggsäck","mcflurry caramel popcorn"]
-ett_items = ["Gammalt Svärd",  "Visset Löv", "Förtrollat äpple","happy meal :)"]
-_items = ["Thor's Hammare", "Dödsskölden", "Det Heliga Svärdet", "", ""]
+sten = Item("sten" , 1, "en",''' \n  ▄▄███▀▀▀█▄\n █    █     ▀█\n█      █    ███\n█     ▐ ▀██████▌
+ ▀█▄▄▄█▄███▀▀▀''')
 
+yxa = Item("yxa", 1, "en",'''           ▄\n          ██\n        ▄▀ █  ▄▄       █
+      ▄█    ██ ▐▌    ▄█▀▌\n     █▀▀▀█▄█▀ ▄██▄▄█▀   █\n         ▄█▀ ▄███        ▐\n       ▄█▀ ▄████         ▌
+     ▄█▀ ██▀  ▀██       █\n   ▄█▀▄██▀      ██     █\n  ▄█ ▄██▀         █▄  █\n █ ███▀           ▐█▄█\n ▀▀▀              █▀
+                 ▀
+''')
+svärd = Item("svärd", 1, "ett",'''
+                 ▄▄▄\n               ▄▀ ▄█\n             ▄▀ ▄██▀\n           ▄▀ ▄██▀\n  ▄▄▄▄   ▄▀ ▄██▀
+   ▄█▀▀██ ▄██▀\n    ▀█▄ ▀██▀\n    ██▀▄  ▀█\n  ▐█▀▄█▀▀█ ██\n ▄█▀█▀    █▀█\n█ ▄█\n ▀▀
+''')
 
+hammare = Item("Tors hammare", 1, "",'''
+       ▄▄▄\n ▄▀▀▀▀▀   ▀▀▀▀▀▄\n█     ▄▀▀▀▄     █\n█     ▀▄▄▄▀     █\n ▀▄▄▄▄▄   ▄▄▄▄▄▀\n      ▀█▀█▀
+       █ █\n       █ █\n       ▌ ▐\n       ▌ ▐\n       █ █\n       ▀█▀
+''')
+slangbella = Item("slangbella", 1, "en",'''
+ ▄▄     ▄▄\n█  █   █  █\n█▀██   █▀███▄▄\n█  █▀▄▄█  █   ▀▄\n█  ▀▄ █▀▀▄█    █\n █  ▀▄▀  █ ▀▀▀▀\n  ▀▄   ▄▀\n    ▌ ▐\n    ▌ ▐
+    ▌ ▐\n    █ █\n     ▀
+''')
+sköld = Item("sköld", 1, "en",'''
+  ▄▄█▀▀▀▀▀█▀▀▀▀▀█▄▄\n▄▀ ▄▄█▀▀▀▀█▀▀▀▀▀▄▄ ▀▄\n█ █      ▐   █    █ █\n█ █      ▐ ▀▀█▀▀  ▐ █\n▐ ▐      ▐   █    █ ▌\n █ ▌      ▌  ▀   █ █
+ █ ▐      █     ▐  █\n  █ █▄    ▐    ▄▀ █\n   █  █▄  ▐  ▄▀  █\n    ▀█▄ ▀▄█▄▀▀▄█▀\n       ▀█▄▄▄█▀
 
+''')
+äpple = Item("förtrollat äpple", 1, "ett",'''
+ ▄█▄    ▄ ▄▀▀▀▄▄\n  ▀  ▄▄▄ █ ▄▄▄▄▄▀\n   ▄▀   ▀▀▀   ▀▄   ▄\n  █             █\n  █         ▀  ▄█\n  ▀▄          ██▀
+   ▀▄      ▄███▀ ▄█▄\n▀   ▀▀█████▀▀    ▀
+''')
+happy_meal = Item("happy meal",1, "ett",'''
+     ▄   ▄\n   ▄▀ ▀▄▀ ▀▄\n  ▄█▄▄▄█▄▄▄█\n▄█  ▌       █▄\n█▀▄ ▐▄▄▄▄▄▄▄▄█▌\n▌  ▀█         █\n▌   ▌         ▐\n▌   ▌▄▄     ▄▄▐
+▌   ▌ ▌      ▌▐\n█   ▌ █     █ ▐\n ▀▄ ▌  ▀▀▀▀▀  ▐\n   ▀█▄▄▄▄▄▄▄▄▄▀
+''')
+löv = Item("löv", 1, "ett",'''
+          ▀█▄\n          ▄▀▄▀\n      ▄▄▀██▄█▄\n     █  ▄ █▌  ▀█\n    █▄█▀ █ ▀█   ▌\n    ▌▄▄▄█▄   ▌  █
+   ██  █  ▌  ▌  ▌\n  ▐█▄▐█  ▐   ▌▄█\n  █  █   █ ▄█▀\n▄█ █▀ █▄██▀\n  ▀▀▀▀
+''')
+
+Items = [sten, yxa, svärd, hammare, slangbella, sköld, äpple, happy_meal, löv]
 
 def printa(text):
   n, x = 0, ""
@@ -68,7 +100,7 @@ def fråga():
               printa("Ditt inventory är tomt")
               print("")
             for item in player1.inventory:
-              print(f"{item.name} +{item.strength_bonus}")
+              print(f"{item.name} +{item.str_bonus}")
         elif x.strip() == "3" or x.strip().lower() == "stats":
             print(f'''
 Lvl = {player1.lvl}
@@ -82,7 +114,8 @@ Str = {player1.strength}''')
 
 def dörr():
   while True:
-    x = input("\nVilken dörr? (1/2/3)\n--> ")
+    print(Dörrar)
+    x = input("{: >28}".format("Vilken dörr?\n--> "))
     if x.strip() == "1" or x.strip() == "2" or x.strip() == "3":
         random.choice([fälla, kista, monster])()
         break
@@ -99,28 +132,40 @@ def fälla():
     printa(f"*0.3  en fälla!*0.4 \nDu tog {x}❤ skada*0.4 \n\nDu har {player1.hp}❤ hp kvar*0.4 \n")
 
 
-
-
-def kista():      #+str i combat?
-    ord = random.choice([" en", " ett", ""])
-    if ord == " en":
-        namn = random.choice(en_items)
-    elif ord == " ett":
-        namn = random.choice(ett_items)
+def kista():
+  namn = random.choice(Items)
+  Items.remove(namn)
+  player1.inventory.append(namn)
+  printa(f"\nDu hittade en kista med {namn.genus}*0.3 .*0.3 .*0.3 .*0.2 \n")
+  for i in player1.inventory[-1].icon:
+    if i == " ":
+      print(i, end = "")
     else:
-        namn = random.choice(_items)
-    for i in ett_items, en_items, _items:
-        if namn in i:
-            i.remove(namn)
-    player1.inventory.append(Item(namn,random.randint(1,5)))
-    player1.strength += player1.inventory[-1].strength_bonus
-    printa(f"\nDu hittade en kista med{ord}*0.3 .*0.3 .*0.3 .*0.2 ")
-    print(f" {namn}!")
-    printa(f"*0.6 Det ger dig +{player1.inventory[-1].strength_bonus} Strength*0.4 \n")
-    if len(player1.inventory) != 5:
-        pass
-
-
+      print(i, end = "")
+      time.sleep(0.02)
+  print(f"\n {namn.name}!")
+  printa(f"*0.6 Det ger dig +{namn.str_bonus} Strength*0.4 \n")
+  player1.strength += namn.str_bonus
+  if len(player1.inventory) > 5:
+      printa(f"\nDitt inventory är fullt!*1 \nVill du byta ut ett av dina gamla items mot {player1.inventory[-1].name}?*1 \n\n")
+      for i in range(5):
+            print(f"{i+1}: {player1.inventory[i].name} +{player1.inventory[i].str_bonus}")
+      print(f"\n*{player1.inventory[5].name} +{player1.inventory[5].str_bonus}")
+      while True:
+          x = input("\nJa / Nej? (1/2)\n--> ")
+          if x.strip().lower() == "nej" or x.strip() == "2":
+            player1.inventory.pop(-1)
+            break
+          elif x.strip().lower() == "ja" or x.strip() == "1":
+            while True:
+              x = input("\nVilket Item? (1/2/3/4/5)\n--> ")
+              if x.strip() == "1" or x.strip() == "2" or x.strip() == "3" or x.strip() == "4" or x.strip() == "5":
+                släng = player1.inventory.pop(int(x)-1)
+                printa(f"\nDu bytte ut {släng.name} mot {namn.name}")
+                break
+            break
+  player1.strength = 1 + sum(item.str_bonus for item in player1.inventory)
+  
 
 
 def monster():    #springer iväg 
@@ -166,11 +211,53 @@ def spela():
       omgång += 1   #balance
       fråga()
       if player1.hp < 1:     #-hp
+        du_förlorade()
+        spela_igen()
+        break
+      elif player1.lvl == 10:
+        du_vann()
+        spela(igen)
+        break
+spela()
+
+def spela():
+  omgång = 0
+  print(välkomnande)
+  while True:
+      omgång += 1   #balance
+      fråga()
+      if player1.hp < 1:     #-hp
         du_förlorade() 
         break
       elif player1.lvl == 10:
         du_vann()
         break
+spela()
+
+def spela_igen():
+    while True:
+      omstart = input("Vill du spela igen? (ja/nej) --> ")
+      if omstart.lower() == "ja":
+          print("startar om från början*0.3 .*0.3 .*0.3 .*0.2")
+          player1 = Player()
+          spela()
+      elif omstart.lower() == "nej":
+          print("Du har valt att inte spela igen, hejdå.")
+          return
+      else:
+          print("Ogiltigt svar. Ange antingen ja eller nej.")
+spela_igen()
+
+"""
+def spela_igen():
+  omstart = input("\nVill du spela igen? (Ja/Nej)\n--> ")
+  if omstart.strip().lower() == "ja":
+    printa("startar om från början*0.3 .*0.3 .*0.3 .*0.2")
+    spela()
+  else:
+    print("okej gg")
+
+spela()
+"""
 
 
-#spela()
