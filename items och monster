@@ -45,3 +45,18 @@ löv = Item("löv", '''
           ▀█▄\n          ▄▀▄▀\n      ▄▄▀██▄█▄\n     █  ▄ █▌  ▀█\n    █▄█▀ █ ▀█   ▌\n    ▌▄▄▄█▄   ▌  █
    ██  █  ▌  ▌  ▌\n  ▐█▄▐█  ▐   ▌▄█\n  █  █   █ ▄█▀\n▄█ █▀ █▄██▀\n  ▀▀▀▀
 ''')
+class monster:
+  def __init__(self, namn, styrka, bild):
+    self.namn = namn
+    self.str_bonus = styrka
+    self.bild = bild
+    
+slajm=monster("ledsen slajm", 1,'''
+      ▄█▀▀▀▀▀▀▀█▄\n    █▀           ▀▄\n   █               █\n  █    ▄    ▄      ▐\n  ▌    ▀    ▀      ▐█\n █       ▄▄▄        █\n █      ▀   ▀      ██\n  ██▄            ██▀\n    ▀▀███████████▀\n''')
+
+napstablook = monster("Napstablook", 2,'''
+       ▄██████▀▄\n     ██▀░░░░░▀█▄█\n    ██░░░░░░░░░▄██\n   ▐█▌░█▌░░█▌░▐███▌\n    ▀▌░░░▄░░░░░███\n     ▌░░░░░░░░░░░█\n     ▌░░░░░░░░░░░▐\n     ▌░░░░░░░░░░░█\n    █░░░░░░░░░░░█▌\n   █░░▄░░░░░░█░██\n   ▀███▄░░█▄▄███▀\n       ▀▀▀▀▀▀▀\n''')
+
+stjärna = monster("stjärna", 3,'''
+      ▄██▄\n  ████████▄▄\n  ██▄█████▀██\n▄████▀▀▀▀███\n▀▀▀█▄████▄███\n   ███▀███ ▀▀\n        ▀▀\n''')
+monsters = [slajm, napstablook, stjärna]
