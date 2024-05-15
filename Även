@@ -192,10 +192,10 @@ def fälla():
 
 def monster():
     monster = random.choice(alla_monster)
-    if monster.styrka + player.lvl > spelare.styrka:
+    if monster.styrka > spelare.styrka:
         spelare.hp -= 1
         monster_print("förlorade", monster)
-    elif monster.styrka + player.lvl < spelare.styrka:
+    elif monster.styrka < spelare.styrka:
         spelare.lvl += 1
         monster_print("vann", monster)
     else:
@@ -290,8 +290,8 @@ def byt_item(item):
     ts(0.3)
     print("\n")
     for i in range(5):
-            print(f"{i+1}: {spelare.inventory[i].namn} +{spelare.inventory[i].bonus_styrka}")
-    print(f"\n*{item.namn} +{item.bonus_styrka}\n")
+            print(f"{i+1}: {spelare.inventory[i].namn} +{spelare.inventory[i].kraft}")
+    print(f"\n*{item.namn} +{item.kraft}\n")
     while True:
         x = input("--> ").strip().lower()
         if x in ["1", "ja"]:
@@ -299,7 +299,9 @@ def byt_item(item):
             while True:
                 y = input("--> ").strip().lower()
                 if y in ["1", "2", "3", "4", "5"]:
+                    släng = spelare.inventory[int(y)-1]
                     spelare.inventory[int(y)-1] = item
+                    printa(f"Du bytte ut {släng.namn} mot {item.namn}")
                     break
                 elif y == "b":
                     break
@@ -338,7 +340,7 @@ def ts(x):
 
 def spela():
     global print_välkomnande
-    if not print_välkomnande:
+    if print_välkomnande == False:
         print(välkomnande)
         print_välkomnande = True
     global spelare
@@ -356,8 +358,9 @@ def spela():
     while True:
         x = input("--> ").strip().lower()
         if x in ["1", "ja"]:
-            printa(f"Du har valt att spela igen\nStartar om programmet")
+            printa("Du har valt att spela igen\nStartar om programmet")
             printa("...", 0.2)
+            print("\n\n\n\n\nVälkommen tillbaka!\nDu vet hur det går till redan...nivå 10 bla bla")
             spela()
         elif x in ["2", "nej"]:
             printa("Du har valt att inte spela igen, hejdå!")
@@ -365,5 +368,3 @@ def spela():
 
 
 spela()
-
-#styrka symbol
