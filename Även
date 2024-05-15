@@ -277,14 +277,15 @@ def kista_print(item):
     else:
         printa(f"\nDet ger dig +{item.kraft} styrka")
         ts(0.3)
-        printa("\nDu la ner föremålet i din ryggsäck.")
+        if len(spelare.inventory) < 5:
+            printa("\nDu la ner föremålet i din ryggsäck.")
     ts(0.5)
 
 
 
 
 def byt_item(item):
-    printa("\n\nDitt inventory är fullt!")
+    printa("\n\nDu försökte lägga ner föremålet i din ryggsäck men den var full!")
     ts(0.3)
     printa("\nVill du byta ut ett av dina gamla items? (ja/nej)")
     ts(0.3)
@@ -368,3 +369,5 @@ def spela():
 
 
 spela()
+
+#styrka symbol
