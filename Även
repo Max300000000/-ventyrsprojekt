@@ -201,9 +201,9 @@ def ryggsäck():
 #Printar spelarens stats
 def stats():
     print(f'''
-Lvl = {spelare.lvl}
-Hp = {spelare.hp}
-Sty = {spelare.styrka}
+Lvl = {"★"*spelare.lvl}{"☆"*(10-spelare.lvl)}
+Hp = {"❤"*spelare.hp}
+Str = {spelare.styrka}
 ''')
 
 
