@@ -1,19 +1,20 @@
 import random, time
 
+#Klasser
 class Spelare:
     def __init__(self):
         self.lvl = 1
         self.hp = 15
         self.styrka = 1
-        self.inventory = []
+        self.ryggsäck = []
 
 class Item:
-  def __init__(self, namn, bild, genus="", healing=False):
+  def __init__(self, namn, bild, genus = "", healing = False):
       self.namn = namn
       self.bild = bild
       self.genus = genus
       self.healing = healing
-      self.kraft = random.randint(1,5)
+      self.kraft = random.randint(1,3)
 
 class Monster:
   def __init__(self, namn, styrka, bild):
@@ -22,8 +23,8 @@ class Monster:
     self.bild = bild
 
 
+#Välkomnande
 välkomnande = ('''Välkommen till  
-
    _   _                _                                 _      _   
   (_)_(_)              | |                               | |    | |  
     / \__   _____ _ __ | |_ _   _ _ __ ___ ___ _ __   ___| | ___| |_ 
@@ -36,21 +37,23 @@ välkomnande = ('''Välkommen till
 Du är en ensam utforskare påväg in i ett mystiskt hus. Se till att nå level 10 innan du dör!
 ''')
 
+
+#Ser till välkomnandet bara printas en gång
 print_välkomnande = False
 
 
-
+#Bild på dörrar
 dörrar =('''\n    ▄▄▄         ▄▄▄         ▄▄▄\n ▄▀▀   ▀▀▄   ▄▀▀   ▀▀▄   ▄▀▀   ▀▀▄\n█   ▄█    █ █  ▄▀▀▄   █ █  ▄▀▀▄   █\n█    █    █ █    ▄▀   █ █    ▄▀   █\n█    █    █ █  ▄█▄▄   █ █  ▄  █   █\n█      ▄▄ █ █      ▄▄ █ █   ▀▀ ▄▄ █\n█      ▀▀ █ █      ▀▀ █ █      ▀▀ █\n█         █ █         █ █         █\n█         █ █         █ █         █\n█▄▄▄▄▄▄▄▄▄█ █▄▄▄▄▄▄▄▄▄█ █▄▄▄▄▄▄▄▄▄█
 ''')
 
 
-
+#Bilder på items 
 sten_bild = (''' \n  ▄▄███▀▀▀█▄\n █    █     ▀█\n█      █    ███\n█     ▐ ▀██████▌
  ▀█▄▄▄█▄███▀▀▀
  ''')
 
 yxa_bild = ('''           ▄\n          ██\n        ▄▀ █  ▄▄       █
-      ▄█    ██ ▐▌    ▄█▀▌\n     █▀▀▀█▄█▀ ▄██▄▄█▀   █\n         ▄█▀ ▄███        ▐\n       ▄█▀ ▄████         ▌
+      ▄█    ██ ▐▌    ▄█▀▌\n     █▀▀▀█▄█▀ ▄██▄▄█▀   █\n         ▄█▀ ▄███       ▐\n       ▄█▀ ▄████         ▌
      ▄█▀ ██▀  ▀██       █\n   ▄█▀▄██▀      ██     █\n  ▄█ ▄██▀         █▄  █\n █ ███▀           ▐█▄█\n ▀▀▀              █▀
                  ▀
 ''')
@@ -89,6 +92,7 @@ löv_bild = ('''
    ██  █  ▌  ▌  ▌\n  ▐█▄▐█  ▐   ▌▄█\n  █  █   █ ▄█▀\n▄█ █▀ █▄██▀\n  ▀▀▀▀
 ''')
 
+
 #Items
 sten = Item("Sten", sten_bild, "en")
 svärd = Item("Svärd", svärd_bild, "ett")
@@ -104,16 +108,26 @@ happy_meal = Item("Happy Meal", happy_meal_bild, "ett", True)
 items = [sten, svärd, yxa, sköld, hammare, slangbella, äpple, happy_meal, löv]
 
 
-fälla_bild =('''
+
+#Bilder på fällor
+fälla_bild1 = ('''
  ▀▀▌░░░░░░░░░░░░░░█▀▀▀▀▀\n   ▌┼░░░░░░░░░░░┼│▌\n   ▀▌│┼░░░░░░┼░│││▌\n    █│││┼░░░░│││▄█\n    ▀█││││┼│││││█\n     █┼┼┼│││┼┼██\n      ▀█┼┼┼┼┼█▀\n        ▀▀▀▀▀
 ''')
 
+fälla_bild2 = ('''
+             ▄  █\n           ▄▄▀ ▄█▀\n         ▄▀ ▄▀   ▄\n       ▄▄█▄▄  ▀█\n     ▄▄█▄▄██▄▄\n   ▄▀ ▄████████▄\n  █ █████████████\n █ ███████████████\n █████████████████\n █████████████████\n  ███████████████\n   ▀███████████▀\n     ▀▀▀▀▀▀▀▀▀
+''')
+
+
+#Fällor
+fällor = [fälla_bild1, fälla_bild2]
 
 
 
-
+#Bilder på monster
 slajm_bild = ('''\n
-      ▄█▀▀▀▀▀▀▀█▄\n    █▀           ▀▄\n   █               █\n  █    ▄    ▄      ▐\n  ▌    ▀    ▀      ▐█\n █       ▄▄▄        █\n █      ▀   ▀      ██\n  ██▄            ██▀\n    ▀▀███████████▀\n''')
+      ▄█▀▀▀▀▀▀▀█▄\n    █▀           ▀▄\n   █               █\n  █    ▄    ▄      ▐\n  ▌    ▀    ▀      ▐█\n █       ▄▄▄        █\n █      ▀   ▀      ██\n  ██▄            ██▀\n    ▀▀███████████▀\n
+      ''')
 
 napstablook_bild = ('''
        ▄██████▀▄\n     ██▀     ▀█▄█\n    ██         ▄██\n   ▐█▌ █▌  █▌ ▐███▌\n    ▀▌   ▄     ███\n     ▌           █\n     ▌           ▐\n     ▌           █\n    █           █▌\n   █  ▄      █ ██\n   ▀███▄  █▄▄███▀\n       ▀▀▀▀▀▀▀
@@ -122,58 +136,69 @@ napstablook_bild = ('''
 stjärna_bild = ('''
       ▄██▄\n  ████████▄▄\n  ██▄█████▀██\n▄████▀▀▀▀███\n▀▀▀█▄████▄███\n   ███▀███ ▀▀\n        ▀▀\n''')
 
-Myrslok_bild = ('''
+myrslok_bild = ('''
          ▄█▄▄▄▄█▄▄▄ ▄\n      ▄█████████████▄\n    ▄██▀▄▀████████████▄▄\n    ████▄██████████████
     ▀██ ▀██████████████▄\n          ▀███████████▀\n            █▀▀▀█▀▀█\n           ▄█  ▄█ ▄█
 ''')
+
+svamp_bild = ('''        ▄▄\n   ██▀▀▀▀▀▀▀▀▀▄\n ▄▀▀ ▄▄    ▄  ▀██\n▐    ▀▀   ▐█▌   ▀█\n▐ ▀█▀█▀▀▀▀▀▀█▄▄   ▌\n ▀█▄▐█▄  ▄ █▀▌▀█▄▌\n  ▀▀██ ▄▄▄  █▄▀▀\n     ▀▄▄▄ ▄█\n    ▄▀    ▀█▄\n   █▄█     █▄█\n  ▐█▀▐  ▄███▀█▌\n     ███████\n     ▀▀   ▀▀
+''')
+
+eld_bild = ('''\n        ▄\n       ▐█\n       █ ▌\n   █  ▄█ █  ▐\n  ██ █    █ ▐█\n ▐▀ █    ▐█▌██\n █  █    ▐███▐█\n ▌         ▀  ██\n▐  ▄██   ▐█▄  ██▄\n█ ▀▀  ▄▄▄  ▀▀ ▐██\n█    ▀   ▀    ██▀\n▀█▄         ▄██▀\n  ▀█████████▀▀
+''')
+
+dino_bild = ('''                  ██████████▄\n                 ██  █████████▄\n                ▐███████████▀██\n                ▐██████████████\n                ▐████████▄▄▄▄▄\n  █             █████████████▀\n ▐█           ▄███████▀\n ███        ▄█████████▄\n ████▄    ▄████████████████\n ██████████████████████   ▀\n ████████████████████▀\n   ▀▀████████████████\n      ████████████▀\n        ▀██▀▀▀██\n         ██   ██\n▀▀▀▀▀▀▀▀▀██▀▀▀██▀▀▀▀▀▀     ▀▀▀\n ▄▄▄▄    ▀▀▀  ▀▀▀   ▀▀▀▀▀▀\n        ▄▄▄▄▄▄▄
+''')
+
+
 #Monster
 slajm = Monster("Ledsen Slajm", 1, slajm_bild)
 napstablook = Monster("Gråtande Gast", 2, napstablook_bild)
 stjärna = Monster("Deprimerad Stjärna", 3, stjärna_bild)
-myrslok = Monster("Miserabel Myrslok", 4, Myrslok_bild)
+myrslok = Monster("Miserabel Myrslok", 4, myrslok_bild)
+svamp = Monster("Förtvivlad Flugsvamp", 5, svamp_bild)
+eld = Monster("Eländig Eld", 6, eld_bild)
+dino = Monster("Djuptvivlad Dinosaurie", 12, dino_bild)
 
-alla_monster = [slajm, napstablook, stjärna, myrslok]
-
-
-
-
-
+alla_monster = [slajm, napstablook, stjärna, myrslok, svamp, eld, dino]
 
 
+
+
+
+
+
+#Funktioner:
+
+
+
+#Frågar spelaren vad den vill göra
 def fråga():
-    print("\nVad vill du göra? (gå/inventory/stats)")
+    print("\nVad vill du göra? (gå/ryggsäck/stats) (1/2/3)")
     while True:
         x = input("--> ").strip().lower()
         if x in ["1", "gå"]:
             dörr()
             break
-        elif x in ["2", "inventory"]:
-            inventory()
+        elif x in ["2", "ryggsäck"]:
+            ryggsäck()
         elif x in ["3", "stats"]:
             stats()
 
 
 
-
-def dörr():
-    print(dörrar)
-    print("\nVilken dörr? (1/2/3)")
-    while True:
-        x = input("--> ").strip()
-        if x in ["1", "2", "3"]:
-            random.choice([fälla, monster, kista])()
-            break
-
-
-def inventory():
+#Printar spelarens inventory
+def ryggsäck():
     print("")
-    for item in spelare.inventory:
+    for item in spelare.ryggsäck:
         print(f"{item.namn} +{item.kraft}")
-    if len(spelare.inventory) == 0:
-        printa("Ditt inventory är tomt\n")
+    if len(spelare.ryggsäck) == 0:
+        printa("Din ryggsäck är tom\n")
     print("")
 
 
+
+#Printar spelarens stats
 def stats():
     print(f'''
 Lvl = {spelare.lvl}
@@ -184,12 +209,35 @@ Sty = {spelare.styrka}
 
 
 
+
+#Frågar spelaren vilken dörr den vill välja
+def dörr():
+    print(dörrar)
+    print("\nVilken dörr? (1/2/3)")
+    while True:
+        x = input("--> ").strip().lower()
+        if x in ["1", "2", "3", "höger", "fram", "framåt", "vänster", "mitten"]:
+            if omgång == 1:
+                kista()
+            elif omgång > 10:
+                random.choice([fälla, monster, monster, kista])()
+            else:
+                random.choice([fälla, monster, kista])()
+            break
+
+
+
+#När spelaren hamnar i en fälla
 def fälla():
     x = random.randint(1,2)
     spelare.hp -= x
+    if spelare.hp < 0:     #Ser till att spelarens hp inte blir negativt
+        spelare.hp = 0
     fälla_print(x)
 
 
+
+#När spelaren möter ett monster
 def monster():
     monster = random.choice(alla_monster)
     if monster.styrka > spelare.styrka:
@@ -200,31 +248,91 @@ def monster():
         monster_print("vann", monster)
     else:
         monster_print("lika", monster)
+        
 
 
+#När spelaren hittar en kista
 def kista():
+    global items
+    if len(items) == 0:    #ser till att det inte tar slut på items
+        items = [sten, svärd, yxa, sköld, hammare, slangbella, äpple, happy_meal, löv]
     item = random.choice(items)
     items.remove(item)
-    if item.healing == True:
+    if item.healing == True:          #Ifall item är ett healing item
         spelare.hp += item.kraft
     kista_print(item)
-    if item.healing == False:
-        if len(spelare.inventory) == 5:
+    if item.healing == False:          
+        if len(spelare.ryggsäck) == 5:
             byt_item(item)
         else:
-            spelare.inventory.append(item)
-        spelare.styrka = 1 + sum(item.kraft for item in spelare.inventory)
+            spelare.ryggsäck.append(item)
+        spelare.styrka = 1 + sum(item.kraft for item in spelare.ryggsäck)
+
+
+
+#Byter ut ett item i spelarens inventory när det är fullt
+def byt_item(item):
+    printa("\n\nDu försökte lägga ner föremålet i din ryggsäck men den var full!")
+    ts(0.3)
+    printa("\nVill du byta ut ett av dina gamla items? (ja/nej) (1/2)")
+    ts(0.3)
+    print("\n")
+    for i in range(5):
+            print(f"{i+1}: {spelare.ryggsäck[i].namn} +{spelare.ryggsäck[i].kraft}")
+    print(f"\n*{item.namn} +{item.kraft}\n")
+    while True:
+        x = input("--> ").strip().lower()
+        if x in ["1", "ja"]:
+            print("\nVilket? (1/2/3/4/5)")
+            while True:
+                y = input("--> ").strip().lower()
+                if y in ["1", "2", "3", "4", "5"]:
+                    släng = spelare.ryggsäck[int(y)-1]
+                    spelare.ryggsäck[int(y)-1] = item
+                    printa(f"\nDu bytte ut {släng.namn} mot {item.namn}")
+                    ts(0.3)
+                    break
+                elif y == "b":
+                    break
+            if y != "b":
+                break
+        elif x in ["2", "nej"]:
+            break
+       
 
 
 
 
+
+#Print funktioner:
+
+
+
+#För enkelhetens skull
+def ts(x):
+    time.sleep(x)
+
+
+    
+#Printar text fint
+def printa(text, hastighet = 0.045):
+    for i in text:
+        print(i, end = "", flush = True)
+        if i != " ":
+            time.sleep(hastighet)
+    
+
+
+
+
+#Printas när man hittar en fälla
 def fälla_print(x):
     print("\nAj!", end = "")
     ts(0.3)
     printa(" en fälla!")
     ts(0.3)
     print("")
-    printa(fälla_bild, 0.005)
+    printa(fällor[random.choice([0, 1])], 0.005)
     ts(0.3)
     printa(f"\nDu tog {x}❤ skada")
     ts(0.3)
@@ -232,6 +340,8 @@ def fälla_print(x):
     ts(0.5)
 
 
+
+#printas när man hittar ett monster
 def monster_print(händelse, monster):
     printa("\nDu stötte på ett monster!")
     ts(0.2)
@@ -257,6 +367,9 @@ def monster_print(händelse, monster):
     ts(0.5)
 
 
+
+
+#Printas när man hittar en kista
 def kista_print(item):
     printa(f"\nDu hittade en kista med {item.genus}")
     printa("...", 0.2)
@@ -271,49 +384,24 @@ def kista_print(item):
     ts(0.5)
     print("")
     if item.healing == True:
-        printa(f"\nDu väljer att äta det direkt\nDet ger dig +{item.kraft}❤ hp")
+        ts(0.3)
+        printa("\nDu väljer att äta det direkt")
+        ts(0.3)
+        printa(f"\nDet ger dig +{item.kraft}❤ hp")
         ts(0.3)
         printa(f"\n\nDu har nu {spelare.hp}❤ hp")
     else:
         printa(f"\nDet ger dig +{item.kraft} styrka")
         ts(0.3)
-        if len(spelare.inventory) < 5:
-            printa("\nDu la ner föremålet i din ryggsäck.")
+        if len(spelare.ryggsäck) < 5:
+            printa("\nDu lade ner föremålet i din ryggsäck")
     ts(0.5)
 
 
 
 
-def byt_item(item):
-    printa("\n\nDu försökte lägga ner föremålet i din ryggsäck men den var full!")
-    ts(0.3)
-    printa("\nVill du byta ut ett av dina gamla items? (ja/nej)")
-    ts(0.3)
-    print("\n")
-    for i in range(5):
-            print(f"{i+1}: {spelare.inventory[i].namn} +{spelare.inventory[i].kraft}")
-    print(f"\n*{item.namn} +{item.kraft}\n")
-    while True:
-        x = input("--> ").strip().lower()
-        if x in ["1", "ja"]:
-            print("\nVilket? (1/2/3/4/5)")
-            while True:
-                y = input("--> ").strip().lower()
-                if y in ["1", "2", "3", "4", "5"]:
-                    släng = spelare.inventory[int(y)-1]
-                    spelare.inventory[int(y)-1] = item
-                    printa(f"Du bytte ut {släng.namn} mot {item.namn}")
-                    break
-                elif y == "b":
-                    break
-            if y != "b":
-                break
-        elif x in ["2", "nej"]:
-            break
 
-
-
-
+#Medelande när man vinner / förlorar
 def du(händelse):
   ts(1)
   if händelse == "förlorade":
@@ -327,26 +415,24 @@ def du(händelse):
 
 
 
-def printa(text, hastighet = 0.045):
-    for i in text:
-        print(i, end = "", flush = True)
-        if i != " ":
-            time.sleep(hastighet)
 
+            
+#Spelfunktion:
 
-def ts(x):
-    time.sleep(x)
+  
 
-
-
+#Anropar funktioner vid rätt tillfälle
 def spela():
-    global print_välkomnande
+    global print_välkomnande         #global används för att man ska slippa ge alla funktioner tillgång till de mest använda variablerna
     if print_välkomnande == False:
         print(välkomnande)
         print_välkomnande = True
     global spelare
     spelare = Spelare()
+    global omgång
+    omgång = 0
     while True:
+        omgång += 1
         fråga()
         print("")
         if spelare.hp < 1:
@@ -355,19 +441,20 @@ def spela():
         elif spelare.lvl == 10:
             du("vann!")
             break
-    print("\n\nVill du spela igen? (ja/nej)")
+    print("\n\nVill du spela igen? (ja/nej) (1/2)")     #Tillåter än att spela igen
     while True:
         x = input("--> ").strip().lower()
         if x in ["1", "ja"]:
-            printa("Du har valt att spela igen\nStartar om programmet")
+            printa("\nDu har valt att spela igen\nStartar om programmet")
             printa("...", 0.2)
+            ts(0.3)
             print("\n\n\n\n\nVälkommen tillbaka!\nDu vet hur det går till redan...nivå 10 bla bla")
+            ts(0.3)
             spela()
         elif x in ["2", "nej"]:
-            printa("Du har valt att inte spela igen, hejdå!")
+            printa("\nDu har valt att inte spela igen, hejdå!")
             break
 
 
+#Anropar spelfunktionen
 spela()
-
-#styrka symbol
